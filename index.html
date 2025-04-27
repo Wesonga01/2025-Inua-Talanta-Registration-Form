@@ -102,6 +102,14 @@
 
             <label>Parent Contact:</label>
             <input type="tel" name="players[0][parent_contact]" required />
+
+            <label>Upload Birth Certificate (File):</label>
+            <input
+              type="file"
+              name="players[0][birth_certificate_file]"
+              accept=".pdf,image/*"
+              required
+            />
           </div>
         </div>
 
@@ -128,9 +136,14 @@
           // Clear inputs and update names
           newPlayer.querySelectorAll("input").forEach((input) => {
             const name = input.getAttribute("name");
-            const updatedName = name.replace(/\[\d+\]/, `[${playerCount - 1}]`);
-            input.setAttribute("name", updatedName);
-            input.value = "";
+            if (name) {
+              const updatedName = name.replace(
+                /\[\d+\]/,
+                `[${playerCount - 1}]`
+              );
+              input.setAttribute("name", updatedName);
+              input.value = "";
+            }
           });
 
           container.appendChild(newPlayer);
